@@ -1,27 +1,30 @@
-
 package appadministrador;
+
 import javax.swing.table.DefaultTableModel;
 import Conexion.conexion;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Inés Muñoz
  */
 public class FormMotivo extends javax.swing.JFrame {
+
     DefaultTableModel model;
     Connection conn;
     Statement sent;
-    
+
     private static FormMotivo instance1;
-    
-    public static FormMotivo getInstance1(){
-        if(instance1==null){
+
+    public static FormMotivo getInstance1() {
+        if (instance1 == null) {
             instance1 = new FormMotivo();
         }
         return instance1;
     }
+
     private FormMotivo() {
         initComponents();
         setLocationRelativeTo(null);
@@ -35,8 +38,9 @@ public class FormMotivo extends javax.swing.JFrame {
         Deshabilitar();
         conn = conexion.getConexion();
         llenar();
-        
+
     }
+
     public ArrayList<String> cargarComboId() {
         ArrayList<String> lista = new ArrayList<String>();
 
@@ -54,41 +58,57 @@ public class FormMotivo extends javax.swing.JFrame {
         }
         return lista;
     }
-    void Deshabilitar(){
+
+    void Deshabilitar() {
         this.tfDescripcionM.setEditable(false);
-       
+
     }
-    void Limpiar(){
+
+    void Limpiar() {
         this.tfDescripcionM.setText("");
-        
+
     }
-    void Habilitar(){
+
+    void Habilitar() {
         this.tfDescripcionM.setEditable(true);
     }
-    void llenar(){
-        try{
+
+    void llenar() {
+        try {
             conn = conexion.getConexion();
-            String[]titulos ={"Id Motivo","Descripcion Motivo","Id Tipo solicitud"};
+            String[] titulos = {"Id Motivo", "Descripcion Motivo", "Id Tipo solicitud"};
             String sql = "select * from motivo";
-          model = new DefaultTableModel(null,titulos);
-          sent = conn.createStatement();
-          ResultSet rs = sent.executeQuery(sql);
-          
-          String[] fila = new String[3];
-          
-          while(rs.next()){
-              fila[0] = rs.getString("id_motivo");
-              fila[1] = rs.getString("descripcion");
-              fila[2] = rs.getString("id_tiposolicitud");
-              model.addRow(fila);
-          }
-          this.tbMotivos.setModel(model);
-         }catch (Exception e){
+            model = new DefaultTableModel(null, titulos);
+            sent = conn.createStatement();
+            ResultSet rs = sent.executeQuery(sql);
+
+            String[] fila = new String[3];
+
+            while (rs.next()) {
+                fila[0] = rs.getString("id_motivo");
+                fila[1] = rs.getString("descripcion");
+                fila[2] = rs.getString("id_tiposolicitud");
+                model.addRow(fila);
+            }
+            this.tbMotivos.setModel(model);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-   
-   
+
+    /**
+     * Validar los campos del formulario
+     *
+     * @return boolean
+     * @author Pablo Bastidas
+     */
+    private boolean ValidarCampos() {
+        if (!this.tfDescripcionM.getText().equals("")) {
+            return true;
+        }
+        return false;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -98,12 +118,14 @@ public class FormMotivo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         tfDescripcionM = new javax.swing.JTextField();
         cbTipos = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbMotivos = new javax.swing.JTable();
-        btEliminarM = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        btNuevoM = new javax.swing.JButton();
         btGuardarM = new javax.swing.JButton();
         btModificarM = new javax.swing.JButton();
-        btNuevoM = new javax.swing.JButton();
+        btEliminarM = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbMotivos = new javax.swing.JTable();
 
         setTitle("MUNICIPALIDAD DE VISTA HERMOSA");
 
@@ -118,22 +140,90 @@ public class FormMotivo extends javax.swing.JFrame {
 
         cbTipos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btNuevoM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btNuevoM.setText("Nuevo");
+        btNuevoM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNuevoMActionPerformed(evt);
+            }
+        });
+
+        btGuardarM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btGuardarM.setText("Guardar");
+        btGuardarM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGuardarMActionPerformed(evt);
+            }
+        });
+
+        btModificarM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btModificarM.setText("Modificar");
+        btModificarM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarMActionPerformed(evt);
+            }
+        });
+
+        btEliminarM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btEliminarM.setText("Eliminar");
+        btEliminarM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarMActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btModificarM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btNuevoM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btGuardarM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btEliminarM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btNuevoM)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btGuardarM)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btModificarM)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btEliminarM)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        jLabel3.setText("jLabel3");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbTipos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
                         .addComponent(jLabel1)
-                        .addGap(46, 46, 46)
-                        .addComponent(tfDescripcionM, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(281, Short.MAX_VALUE))
+                        .addGap(46, 46, 46))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfDescripcionM, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,11 +232,16 @@ public class FormMotivo extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfDescripcionM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cbTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                    .addComponent(cbTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tbMotivos.setModel(new javax.swing.table.DefaultTableModel(
@@ -167,59 +262,15 @@ public class FormMotivo extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbMotivos);
 
-        btEliminarM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btEliminarM.setText("Eliminar");
-        btEliminarM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEliminarMActionPerformed(evt);
-            }
-        });
-
-        btGuardarM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btGuardarM.setText("Guardar");
-        btGuardarM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btGuardarMActionPerformed(evt);
-            }
-        });
-
-        btModificarM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btModificarM.setText("Modificar");
-        btModificarM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btModificarMActionPerformed(evt);
-            }
-        });
-
-        btNuevoM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btNuevoM.setText("Nuevo");
-        btNuevoM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNuevoMActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btNuevoM)
-                        .addGap(38, 38, 38)
-                        .addComponent(btGuardarM)
-                        .addGap(41, 41, 41)
-                        .addComponent(btModificarM)
-                        .addGap(49, 49, 49)
-                        .addComponent(btEliminarM)
-                        .addGap(74, 74, 74)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -227,15 +278,9 @@ public class FormMotivo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btGuardarM)
-                    .addComponent(btModificarM)
-                    .addComponent(btEliminarM)
-                    .addComponent(btNuevoM))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -247,93 +292,106 @@ public class FormMotivo extends javax.swing.JFrame {
     }//GEN-LAST:event_btNuevoMActionPerformed
 
     private void btGuardarMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarMActionPerformed
-        try{
-            String item = (String )this.cbTipos.getSelectedItem();
-            String sql = "insert into motivo(descripcion,id_tiposolicitud) values(?,?)";
-            PreparedStatement ps = conn.prepareCall(sql);
-            ps.setString(1, this.tfDescripcionM.getText());            
-            ps.setString(2, item); 
-            int n = ps.executeUpdate();
-            if(n>0)
-            {
-             JOptionPane.showMessageDialog(null, "Motivo Ingresado con éxito");
+
+        if (ValidarCampos()) {
+            try {
+                String item = (String) this.cbTipos.getSelectedItem();
+                String sql = "insert into motivo(descripcion,id_tiposolicitud) values(?,?)";
+                PreparedStatement ps = conn.prepareCall(sql);
+                ps.setString(1, this.tfDescripcionM.getText());
+                ps.setString(2, item);
+                int n = ps.executeUpdate();
+                if (n > 0) {
+                    JOptionPane.showMessageDialog(null, "Motivo Ingresado con éxito");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al insertar " + e.getMessage());
             }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error al insertar "+e.getMessage());
+            llenar();
+            Limpiar();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: No se permiten campos vacíos.");
         }
-        llenar();
-        Limpiar();
+
+
     }//GEN-LAST:event_btGuardarMActionPerformed
 
     private void tbMotivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMotivosMouseClicked
-           if(evt.getButton()==1)
-        {
+        if (evt.getButton() == 1) {
             int fila = this.tbMotivos.getSelectedRow();
-              
-            try{
+
+            try {
                 Habilitar();
-                String sql = "select * from motivo where id_motivo = "+this.tbMotivos.getValueAt(fila,0);
+                String sql = "select * from motivo where id_motivo = " + this.tbMotivos.getValueAt(fila, 0);
                 sent = conn.createStatement();
                 ResultSet rs = sent.executeQuery(sql);
-                
+
                 rs.next();
-               this.tfDescripcionM.setText(rs.getString("descripcion"));
+                this.tfDescripcionM.setText(rs.getString("descripcion"));
                 this.cbTipos.setSelectedItem(rs.getString("id_tiposolicitud"));
-           
-            }catch (Exception e){
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
     }//GEN-LAST:event_tbMotivosMouseClicked
 
     private void btEliminarMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarMActionPerformed
-         try {
-            int fila = this.tbMotivos.getSelectedRow();
-            String sql = "Delete motivo where id_motivo = "+this.tbMotivos.getValueAt(fila,0);
-             
-               sent = conn.createStatement();
-               int n = sent.executeUpdate(sql);
-              
-               if(n>0)
-               {
-                   llenar();
-                   JOptionPane.showMessageDialog(null, "Motivo Eliminado exitosamente");
-               }
-               
-        }catch(Exception e){
-        JOptionPane.showMessageDialog(null, "Error "+e.getMessage());
+
+        if (this.tbMotivos.getSelectedRow() > -1) {
+            try {
+                int fila = this.tbMotivos.getSelectedRow();
+                String sql = "Delete motivo where id_motivo = " + this.tbMotivos.getValueAt(fila, 0);
+
+                sent = conn.createStatement();
+                int n = sent.executeUpdate(sql);
+
+                if (n > 0) {
+                    llenar();
+                    JOptionPane.showMessageDialog(null, "Motivo Eliminado exitosamente");
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: Debe seleccionar un Motivo de la lista.");
         }
     }//GEN-LAST:event_btEliminarMActionPerformed
 
     private void btModificarMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarMActionPerformed
-        try {
-          
-            String sql = "Update motivo SET descripcion = ? ,id_tiposolicitud= ?  where id_motivo = ?";
-             String item = (String )this.cbTipos.getSelectedItem();
-              int fila = this.tbMotivos.getSelectedRow();
-              String dao = (String) this.tbMotivos.getValueAt(fila,0);
-              PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1, this.tfDescripcionM.getText());            
-                ps.setString(2, item);                            
+
+        if (ValidarCampos()) {
+            try {
+
+                String sql = "Update motivo SET descripcion = ? ,id_tiposolicitud= ?  where id_motivo = ?";
+                String item = (String) this.cbTipos.getSelectedItem();
+                int fila = this.tbMotivos.getSelectedRow();
+                String dao = (String) this.tbMotivos.getValueAt(fila, 0);
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, this.tfDescripcionM.getText());
+                ps.setString(2, item);
                 ps.setString(3, dao);
 
                 int n = ps.executeUpdate();
-                if(n>0)
-               {
-                   Limpiar();
-                   llenar();
-                   JOptionPane.showMessageDialog(null, "Motivo Modificado");
-               }
-        }catch(Exception e){
-        JOptionPane.showMessageDialog(null, "Error "+e.getMessage());
+                if (n > 0) {
+                    Limpiar();
+                    llenar();
+                    JOptionPane.showMessageDialog(null, "Motivo Modificado");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: No se permiten campos vacíos.");
         }
+
+
     }//GEN-LAST:event_btModificarMActionPerformed
 
-    
     public static void main(String args[]) {
-        
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormMotivo().setVisible(true);
@@ -349,6 +407,8 @@ public class FormMotivo extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbTipos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbMotivos;
