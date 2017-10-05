@@ -134,7 +134,7 @@ public class FormLogin extends javax.swing.JFrame {
             if(rs.next())
             {
                 String rol = rs.getString("id_rol");
-                if(rol.equals("13"))
+                if(rol.equals("1"))
                 {
                     FormAdministrador a = new FormAdministrador();
                        a.setVisible(true);

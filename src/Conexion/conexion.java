@@ -20,7 +20,7 @@ public class conexion {
         Statement sr;
         ResultSet rs;
         try{
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "C##Ines", "123456");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "C##PABLOB", "123456");
             sr = con.createStatement();
             //rs = sr.executeQuery("select id_rol from funcionario");
         }catch(Exception e)
