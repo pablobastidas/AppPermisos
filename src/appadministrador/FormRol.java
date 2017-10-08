@@ -77,6 +77,17 @@ public class FormRol extends javax.swing.JFrame {
         }
         return lista;
     }*/
+    /**
+     * Validar si los campos tienen datos en el formulario.
+     *
+     * @return boolean
+     */
+    private boolean ValidarCampos() {
+        if (!this.tfNombreR.getText().equals("") && !this.tfDescripcionR.getText().equals("")) {
+            return true;
+        }
+        return false;
+    }
 
     void Deshabilitar() {
         this.tfDescripcionR.setEditable(false);
@@ -133,12 +144,15 @@ public class FormRol extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cbUnidadInterna = new javax.swing.JComboBox<>();
         tfUnidadInterna = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbRoles = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         btNuevoR = new javax.swing.JButton();
+        btGuardarR1 = new javax.swing.JButton();
         btModificarR = new javax.swing.JButton();
         btEliminarR = new javax.swing.JButton();
-        btGuardarR1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbRoles = new javax.swing.JTable();
 
         setTitle("MUNICIPALIDAD DE VISTA HERMOSA");
 
@@ -156,46 +170,125 @@ public class FormRol extends javax.swing.JFrame {
 
         cbUnidadInterna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btNuevoR.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btNuevoR.setText("Nuevo");
+        btNuevoR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNuevoRActionPerformed(evt);
+            }
+        });
+
+        btGuardarR1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btGuardarR1.setText("Guardar");
+        btGuardarR1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGuardarR1ActionPerformed(evt);
+            }
+        });
+
+        btModificarR.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btModificarR.setText("Modificar");
+        btModificarR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarRActionPerformed(evt);
+            }
+        });
+
+        btEliminarR.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btEliminarR.setText("Eliminar");
+        btEliminarR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarRActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btModificarR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btGuardarR1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btNuevoR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btEliminarR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btNuevoR)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btGuardarR1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btModificarR)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btEliminarR)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel4.setText("jLabel4");
+
+        jLabel5.setText("jLabel5");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(37, 37, 37)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(tfNombreR, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(31, 31, 31)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(tfDescripcionR, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbUnidadInterna, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfDescripcionR, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfNombreR, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfUnidadInterna, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfUnidadInterna, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbUnidadInterna, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tfNombreR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tfDescripcionR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cbUnidadInterna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfUnidadInterna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(tfNombreR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(tfDescripcionR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cbUnidadInterna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(tfUnidadInterna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 22, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         tbRoles.setModel(new javax.swing.table.DefaultTableModel(
@@ -216,59 +309,16 @@ public class FormRol extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbRoles);
 
-        btNuevoR.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btNuevoR.setText("Nuevo");
-        btNuevoR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNuevoRActionPerformed(evt);
-            }
-        });
-
-        btModificarR.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btModificarR.setText("Modificar");
-        btModificarR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btModificarRActionPerformed(evt);
-            }
-        });
-
-        btEliminarR.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btEliminarR.setText("Eliminar");
-        btEliminarR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEliminarRActionPerformed(evt);
-            }
-        });
-
-        btGuardarR1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btGuardarR1.setText("Guardar");
-        btGuardarR1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btGuardarR1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btNuevoR)
-                        .addGap(31, 31, 31)
-                        .addComponent(btGuardarR1)
-                        .addGap(34, 34, 34)
-                        .addComponent(btModificarR)
-                        .addGap(44, 44, 44)
-                        .addComponent(btEliminarR)
-                        .addGap(91, 91, 91))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,13 +327,7 @@ public class FormRol extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btNuevoR)
-                    .addComponent(btModificarR)
-                    .addComponent(btEliminarR)
-                    .addComponent(btGuardarR1))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -295,93 +339,110 @@ public class FormRol extends javax.swing.JFrame {
     }//GEN-LAST:event_btNuevoRActionPerformed
 
     private void btGuardarR1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarR1ActionPerformed
-       String item = (String )this.cbUnidadInterna.getSelectedItem();
-      // JOptionPane.showMessageDialog(null, ""+item);
-         String estado = "1";
-              try{
-            String sql = "insert into rol(nombre_rol,descripcion_rol,id_unidad,estado) values(?,?,?,?)";
-            PreparedStatement ps = conn.prepareCall(sql);
-            ps.setString(1, this.tfNombreR.getText());            
-            ps.setString(2, this.tfDescripcionR.getText());
-            ps.setString(3, item);
-            ps.setString(4,estado);
-            int n = ps.executeUpdate();
-            if(n>0)
-            {
-             JOptionPane.showMessageDialog(null, "Rol Ingresado con éxito");
+
+        if (ValidarCampos()) {
+            String item = (String) this.cbUnidadInterna.getSelectedItem();
+            // JOptionPane.showMessageDialog(null, ""+item);
+            String estado = "1";
+            try {
+                String sql = "insert into rol(nombre_rol,descripcion_rol,id_unidad,estado) values(?,?,?,?)";
+                PreparedStatement ps = conn.prepareCall(sql);
+                ps.setString(1, this.tfNombreR.getText());
+                ps.setString(2, this.tfDescripcionR.getText());
+                ps.setString(3, item);
+                ps.setString(4, estado);
+                int n = ps.executeUpdate();
+                if (n > 0) {
+                    JOptionPane.showMessageDialog(null, "Rol Ingresado con éxito");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al insertar " + e.getMessage());
             }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error al insertar "+e.getMessage());
+            llenar();
+            Limpiar();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: No se permiten campos vacíos.");
         }
-        llenar();
-        Limpiar();
+
+
     }//GEN-LAST:event_btGuardarR1ActionPerformed
 
     private void tbRolesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRolesMouseClicked
-       if(evt.getButton()==1)
-        {
+        if (evt.getButton() == 1) {
             int fila = this.tbRoles.getSelectedRow();
-              
-            try{
+
+            try {
                 Habilitar();
-                String sql = "select * from rol where id_rol = "+this.tbRoles.getValueAt(fila,0);
+                String sql = "select * from rol where id_rol = " + this.tbRoles.getValueAt(fila, 0);
                 sent = conn.createStatement();
                 ResultSet rs = sent.executeQuery(sql);
-                
+
                 rs.next();
                 this.tfNombreR.setText(rs.getString("nombre_rol"));
                 this.tfDescripcionR.setText(rs.getString("descripcion_rol"));
                 this.cbUnidadInterna.setSelectedItem(rs.getString("id_unidad"));
-           
-            }catch (Exception e){
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
     }//GEN-LAST:event_tbRolesMouseClicked
 
     private void btEliminarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarRActionPerformed
-         try {
+        
+        if(this.tbRoles.getSelectedRow() > -1){
+            try {
             int fila = this.tbRoles.getSelectedRow();
-            String sql = "Update rol  SET estado = '0' where id_rol = "+this.tbRoles.getValueAt(fila,0);
-             
-               sent = conn.createStatement();
-               int n = sent.executeUpdate(sql);
-              
-               if(n>0)
-               {
-                   llenar();
-                   JOptionPane.showMessageDialog(null, "Rol Eliminado exitosamente");
-               }
-               
-        }catch(Exception e){
-        JOptionPane.showMessageDialog(null, "Error "+e.getMessage());
+            String sql = "Update rol  SET estado = '0' where id_rol = " + this.tbRoles.getValueAt(fila, 0);
+
+            sent = conn.createStatement();
+            int n = sent.executeUpdate(sql);
+
+            if (n > 0) {
+                llenar();
+                JOptionPane.showMessageDialog(null, "Rol Eliminado exitosamente");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
         }
+        }else{
+            JOptionPane.showMessageDialog(null, "Error: Debe seleccionar un elemento de la lista para eliminarlo.");
+        }
+        
+        
     }//GEN-LAST:event_btEliminarRActionPerformed
 
     private void btModificarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarRActionPerformed
-          try {
-          
-            String sql = "Update rol  SET nombre_rol = ? ,descripcion_rol= ? , id_unidad= ? where id_rol = ?";
-             
-              int fila = this.tbRoles.getSelectedRow();
-              String dao = (String) this.tbRoles.getValueAt(fila,0);
-              PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1, this.tfNombreR.getText());            
+
+        if (ValidarCampos()) {
+            try {
+
+                String sql = "Update rol  SET nombre_rol = ? ,descripcion_rol= ? , id_unidad= ? where id_rol = ?";
+
+                int fila = this.tbRoles.getSelectedRow();
+                String dao = (String) this.tbRoles.getValueAt(fila, 0);
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, this.tfNombreR.getText());
                 ps.setString(2, this.tfDescripcionR.getText());
-                  String item = (String )this.cbUnidadInterna.getSelectedItem();
+                String item = (String) this.cbUnidadInterna.getSelectedItem();
                 ps.setString(3, item);
-                ps.setString(4,dao);
+                ps.setString(4, dao);
                 int n = ps.executeUpdate();
-                if(n>0)
-               {
-                   Limpiar();
-                   llenar();
-                   JOptionPane.showMessageDialog(null, "Rol Modificado");
-               }
-        }catch(Exception e){
-        JOptionPane.showMessageDialog(null, "Error "+e.getMessage());
+                if (n > 0) {
+                    Limpiar();
+                    llenar();
+                    JOptionPane.showMessageDialog(null, "Rol Modificado");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: No se permiten campos vacíos.");
         }
+
+
     }//GEN-LAST:event_btModificarRActionPerformed
 
     /**
@@ -428,6 +489,9 @@ public class FormRol extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbRoles;

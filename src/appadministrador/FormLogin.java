@@ -1,4 +1,3 @@
-
 package appadministrador;
 
 import Conexion.conexion;
@@ -12,23 +11,36 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Ines Muñoz
- * 
+ *
  */
 public class FormLogin extends javax.swing.JFrame {
 
-       
     Connection conn;
     Statement sent;
+
     public FormLogin() {
         initComponents();
-        
-         this.setLocationRelativeTo(null);
+
+        this.setLocationRelativeTo(null);
     }
 
-     void Limpiar(){
+    /**
+     * Valida que los campos del formulario no esten vacíos.
+     *
+     * @return boolean
+     */
+    private boolean ValidarCampos() {
+        if (!this.tfUsuario.getText().equals("") && !this.tfPassword.toString().equals("")) {
+            return true;
+        }
+        return false;
+    }
+
+    void Limpiar() {
         this.tfUsuario.setText("");
         this.tfPassword.setText("");
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -54,6 +66,7 @@ public class FormLogin extends javax.swing.JFrame {
         tfUsuario.setToolTipText("");
 
         btIngresar.setBackground(new java.awt.Color(66, 139, 202));
+        btIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btIngresar.setText("Ingresar");
         btIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,43 +131,39 @@ public class FormLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIngresarActionPerformed
-        
-             
-        
-        try{
-            conn = conexion.getConexion();    
-            String sql = "select id_rol from funcionario where rut='"+this.tfUsuario.getText()+"' AND password ='"+this.tfPassword.getText()+"'";
-            
-            sent = conn.createStatement();    
-            ResultSet rs = sent.executeQuery(sql);
-            
+
+        if (ValidarCampos()) {
+            try {
+                conn = conexion.getConexion();
+                String sql = "select id_rol from funcionario where rut='" + this.tfUsuario.getText() + "' AND password ='" + this.tfPassword.getText() + "'";
+
+                sent = conn.createStatement();
+                ResultSet rs = sent.executeQuery(sql);
+
 //rs.getString("id_rol")!=null
-            if(rs.next())
-            {
-                String rol = rs.getString("id_rol");
-                if(rol.equals("1"))
-                {
-                    FormAdministrador a = new FormAdministrador();
-                       a.setVisible(true);
-                    this.dispose();
-                }else
-                {
-                    JOptionPane.showMessageDialog(null,"Usted no es Administrador!\n Su acceso es por Web");
+                if (rs.next()) {
+                    String rol = rs.getString("id_rol");
+                    if (rol.equals("1")) {
+                        FormAdministrador a = new FormAdministrador();
+                        a.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Usted no es Administrador!\n Su acceso es por Web");
+                        Limpiar();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error: Usuario o password incorrectos.");
                     Limpiar();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            else{
-                JOptionPane.showMessageDialog(null,"No existe el usuario");
-                Limpiar();
-            }
-          
-                     
-       ;
-         }catch (Exception e){
-            e.printStackTrace();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: No se permiten datos vacíos en el formulario.");
+            Limpiar();
         }
-        
-        
+
+
     }//GEN-LAST:event_btIngresarActionPerformed
 
     /**

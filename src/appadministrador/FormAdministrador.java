@@ -42,9 +42,8 @@ public class FormAdministrador extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImages(null);
         setName("formAdministrador"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(600, 500));
 
-        lImagen.setIcon(new javax.swing.ImageIcon("C:\\Users\\perritosAIBO\\Downloads\\logo .png")); // NOI18N
+        lImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/logo .png"))); // NOI18N
 
         lBienvenido.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lBienvenido.setText("Bienvenido Administrador");
