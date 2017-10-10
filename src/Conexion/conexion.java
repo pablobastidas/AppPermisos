@@ -22,7 +22,7 @@ public class conexion {
         try{
             con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "C##PABLOB", "123456");
             sr = con.createStatement();
-            //rs = sr.executeQuery("select id_rol from funcionario");
+            //rs = sr.executeQuery("select id_rol from funcionario");c
         }catch(Exception e)
         {
             JOptionPane.showMessageDialog(null,"Conexión erronea "+e);

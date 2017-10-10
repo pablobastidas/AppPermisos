@@ -1,6 +1,7 @@
 package appadministrador;
 
 import Conexion.conexion;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -135,28 +136,47 @@ public class FormLogin extends javax.swing.JFrame {
         if (ValidarCampos()) {
             try {
                 conn = conexion.getConexion();
-                String sql = "select id_rol from funcionario where rut='" + this.tfUsuario.getText() + "' AND password ='" + this.tfPassword.getText() + "'";
 
-                sent = conn.createStatement();
-                ResultSet rs = sent.executeQuery(sql);
+                /* Toma los parametros del Formulario de Escritorio*/
+                String rut = this.tfUsuario.getText().trim();
+                String pass = this.tfPassword.getText().trim();
 
-//rs.getString("id_rol")!=null
-                if (rs.next()) {
-                    String rol = rs.getString("id_rol");
-                    if (rol.equals("1")) {
-                        FormAdministrador a = new FormAdministrador();
-                        a.setVisible(true);
-                        this.dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Usted no es Administrador!\n Su acceso es por Web");
-                        Limpiar();
-                    }
+                /*
+                    Realiza una llamada a la función definida en Oracle.
+                    Devuelve el primer parametro, los siguientes 2 los recibe del formulario
+                 */
+                String call = "{? = call LOGINESCRITORIO(?,?)}";
+                /* Prepara la llamada para ejecutar la función */
+                CallableStatement cstmt = conn.prepareCall(call);
+
+                /*
+                    Asigna las variables del formulario
+                    La primera variable le asigna el tipo de dato de la BD para asignarle la salida
+                 */
+                cstmt.setString(2, rut);
+                cstmt.setString(3, pass);
+                cstmt.registerOutParameter(1, java.sql.Types.INTEGER);
+
+                /* Ejecuta la función y asigna la variable de resultado. */
+                int check = cstmt.executeUpdate();
+
+                /* Comprueba si es administrador o no */
+                if (check == 1) {
+                    FormAdministrador a = new FormAdministrador();
+                    a.setVisible(true);
+                    this.dispose();
+                } else if (check > 1) {
+                    JOptionPane.showMessageDialog(null, "Usted no es Administrador!\n Su acceso es por Web");
+                    Limpiar();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error: Usuario o password incorrectos.");
+                    JOptionPane.showMessageDialog(null, "Usuario o Password incorrecta!!!");
                     Limpiar();
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error!!!");
+                Limpiar();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Error: No se permiten datos vacíos en el formulario.");
